@@ -77,7 +77,7 @@ int main(){
 				suma_j=pj-nj;
 				if(suma_i<0){
 					suma_i*=-1;
-					cout<<"Es menor"<<endl;
+//					cout<<"Es menor"<<endl;
 				}
 				if(suma_j<0){
 					suma_j*=-1;
@@ -100,7 +100,7 @@ int main(){
 			turno='+';
 		}	
 		cout<<pieza<<endl;
-		}else{
+	}else{
 			if(turno=='#'){
 				cout<<"JUGADOR 1 GANA"<<endl;
 			}else{
@@ -109,7 +109,7 @@ int main(){
 		
 		}
 		
-	}while(termino!=121||vive==true);	
+	}while(vive==true);	
 	freemat(tablero);		
 return 0;
 }	
