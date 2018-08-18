@@ -13,8 +13,8 @@ void llenar(char**);
 bool puedemover(int,int,char,char**,int,int,int,int);
 bool piezacorrecta(int,int,char,char**&);
 void comer(int,int,char,char**&);
+bool vivo(char,char**);
 int main(){
-
 	int resp=0;
 	do{
 	cout<<"1) Jugar"<<endl
@@ -38,10 +38,14 @@ int main(){
 	 bool mov_valido=false;
 	bool pieza=false;
 	char posj;
-	cout<<tablero[1][6]<<endl;
+	//cout<<tablero[1][6]<<endl;
 	// ni == nuwva posiicon en i y nj == nueva posicion en j
 	int posi,pj,ni,nj,suma_i,suma_j;
+	bool vive=true;
 	do{
+		vive=vivo(turno,tablero);
+		cout<<vive<<endl;
+		if(vive==true){
 		mov_valido=false;
 		imprimir(tablero);
 		cout<<endl;
@@ -78,13 +82,13 @@ int main(){
 				if(suma_j<0){
 					suma_j*=-1;
 				}	
-			cout<<"------"<<suma_i<<"----- "<<suma_j<<"-----------"<<endl;
+		//	cout<<"------"<<suma_i<<"----- "<<suma_j<<"-----------"<<endl;
 			if( (suma_i==2 ||suma_i==1|| suma_i==0)&&(suma_j==1||suma_j==2||suma_j==0 ) ){
-		cout<<"Si se puede"<<endl;
+		//cout<<"Si se puede"<<endl;
 		mov_valido=puedemover(ni,nj,turno,tablero,suma_j,suma_i,posi,pj);
 
 			}else{
-			cout<<"No se puede" <<endl;	
+			cout<<"Movimiento Invalido intente de Nuevo" <<endl;	
 			mov_valido=false;
 			}	
 		//	mov_valido=puedemover( );
@@ -96,7 +100,16 @@ int main(){
 			turno='+';
 		}	
 		cout<<pieza<<endl;
-	}while(termino!=120);	
+		}else{
+			if(turno=='#'){
+				cout<<"JUGADOR 1 GANA"<<endl;
+			}else{
+				cout<<"JUGADOR 2 GANA"<<endl;
+			}
+		
+		}
+		
+	}while(termino!=121||vive==true);	
 	freemat(tablero);		
 return 0;
 }	
@@ -199,12 +212,12 @@ bool piezacorrecta(int i,int  j,char pieza,char**& mat){
 	}
 	*/
 	
-	cout<<pieza <<"        HMMMMMMMMM   "<<mat[i][j]<<endl;	
+	//cout<<pieza <<"        HMMMMMMMMM   "<<mat[i][j]<<endl;	
 	if(mat[i][j]==pieza) {
         valido=true;
-		cout<<"Verdadero!"<<endl;
+		//cout<<"Verdadero!"<<endl;
 	}else{
-		cout<<"Falso!"<<endl;
+		//cout<<"Falso!"<<endl;
 
 	}	
 return valido;
@@ -233,9 +246,9 @@ void comer(int i,int j,char pieza,char**& mat){
 		}
 		
 			if(j-1>0){
-				cout<<"Entro???"<<endl;
+		//		cout<<"Entro???"<<endl;
 				if(mat[i][j-1]=='#'){
-					cout<<"valido???"<<endl;
+	//				cout<<"valido???"<<endl;
 					mat[i][j-1]='+';
 //					cout<<"------------------"<<mat[i][j-1]<<"  --------------"<<endl;
 				}
@@ -324,5 +337,24 @@ void comer(int i,int j,char pieza,char**& mat){
 
 	}	
 
+}
+bool vivo(char pieza,char** mat){
+	bool sigue =false;
+	int cont=0;
+	for(int i=1;i<12;i++){
+		for(int j=1;j<12;j++){
+			if(mat[i][j]==pieza){
+			cont++;
+		}
+	}
+	}
+	if(cont==0){
+		sigue=false;
+	}else{
+		sigue=true;
+	
+	}
+cout<<cont<<"CONTADOR"<<endl;
+return vivo;
 }	
 
