@@ -12,7 +12,7 @@ void freemat(char**);
 void llenar(char**);
 bool puedemover(int,int,char,char**,int,int,int,int);
 bool piezacorrecta(int,int,char,char**&);
-void comer(int,int,char,char**);
+void comer(int,int,char,char**&);
 int main(){
 
 	int resp=0;
@@ -30,7 +30,6 @@ int main(){
 	tablero[6][11]='#';
 	tablero[1][6]='+';
 	tablero[11][6]='+';
-	imprimir(tablero);
 	
 	int termino=4;
 	//freemat(tablero);
@@ -43,7 +42,10 @@ int main(){
 	// ni == nuwva posiicon en i y nj == nueva posicion en j
 	int posi,pj,ni,nj,suma_i,suma_j;
 	do{
-		
+		mov_valido=false;
+		imprimir(tablero);
+		cout<<endl;
+		cout<<"Mueven las Piezas: "<<turno<< " !!"<<endl;
 			do{
 				cout<<"Ingrese Posicion de I [1-11]: ";
 				cin >>posi;
@@ -78,24 +80,24 @@ int main(){
 				}	
 			cout<<"------"<<suma_i<<"----- "<<suma_j<<"-----------"<<endl;
 			if( (suma_i==2 ||suma_i==1|| suma_i==0)&&(suma_j==1||suma_j==2||suma_j==0 ) ){
-			cout<<"Si se puede"<<endl;
-			mov_valido=puedemover(ni,nj,turno,tablero,suma_j,suma_i,posi,pj);
+		cout<<"Si se puede"<<endl;
+		mov_valido=puedemover(ni,nj,turno,tablero,suma_j,suma_i,posi,pj);
 
 			}else{
 			cout<<"No se puede" <<endl;	
-
+			mov_valido=false;
 			}	
 		//	mov_valido=puedemover( );
 		}while(mov_valido==false);	
-
-		if(pieza=='+'){
-			pieza='#';
+		comer(ni,nj,turno,tablero);
+		if(turno=='+'){
+			turno='#';
 		}else{
-			pieza='+';
+			turno='+';
 		}	
 		cout<<pieza<<endl;
 	}while(termino!=120);	
-
+	freemat(tablero);		
 return 0;
 }	
 
@@ -211,7 +213,7 @@ bool puedemover(int newi,int newj,char pieza,char** mat,int saltoj,int saltoi,in
 	bool valido=false;
 	if(mat[newi][newj]=='0'){
 		if(saltoi==2 ||saltoj==2){				
-			mat[i][j]=pieza;
+			mat[i][j]='0';
 
 		}
 			mat[newi][newj]=pieza;	
@@ -222,22 +224,105 @@ return valido;
 
 
 }
-void comer(int i,int j,char pieza,char++ mat){
+void comer(int i,int j,char pieza,char**& mat){
 	if(pieza=='+'){
-		if(i-1>0 &&){
-			
+		if((i-1>0) && (j-1>0) ){
+			if(mat[i-1][j-1]=='#' ){
+				mat[i-1][j-1]='+';
+			}	
 		}
-		if(i	
+		
+			if(j-1>0){
+				cout<<"Entro???"<<endl;
+				if(mat[i][j-1]=='#'){
+					cout<<"valido???"<<endl;
+					mat[i][j-1]='+';
+//					cout<<"------------------"<<mat[i][j-1]<<"  --------------"<<endl;
+				}
+			}
+			
+			if(j+1<12){
+				if(mat[i][j+1]=='#'){
+					mat[i][j+1]='+';
+				}
+			}
+			if(i-1>0){
+				if(mat[i-1][j]=='#'){
+					mat[i-1][j]='+';
+				}
+			}
+			
+			if(i+1<12){
+				if(mat[i+1][j]=='#'){
+					mat[i+1][j]='+';
+				}
+			}
+		if((i+1<12)&&(j+1<<12)){
+			if(mat[i+1][j+1]=='#' ){
+				mat[i+1][j+1]='+';
+			}	
+		
+
+		}
+		if(i-1> 0 && j+1<12){
+					if(mat[i-1][j+1]=='#'){
+				mat[i-1][j+1]='+';
+			}	
+		
+		}if(i+1<12 && j-1>0){
+			if(mat[i+1][j-1]=='#'){
+				mat[i+1][j-1]='+';
+			}	
+		}	
 
 	}else if(pieza=='#'){
+			if((i-1>0) && (j-1>0) ){
+				if(mat[i-1][j-1]=='+' ){
+					mat[i-1][j-1]='#';
+				}	
+			}
+			if(j-1>0){
+				if(mat[i][j-1]=='+'){
+					mat[i][j-1]='#';
+				}
+			}
+			
+			if(j+1<12){
+				if(mat[i][j+1]=='+'){
+					mat[i][j+1]='#';
+				}
+			}
+			if(i-1>0){
+				if(mat[i-1][j]=='+'){
+					mat[i-1][j]='#';
+				}
+			}
+			
+			if(i+1<12){
+				if(mat[i+1][j]=='+'){
+					mat[i+1][j]='#';
+				}
+			}
+		if((i+1<12)&&(j+1<<12)){
+			if(mat[i+1][j+1]=='+' ){
+				mat[i+1][j+1]='#';
+			}	
+		
 
-
+		}
+		if(i-1> 0 && j+1<12){
+					if(mat[i-1][j+1]=='+'){
+				mat[i-1][j+1]='#';
+			}	
+		
+		}if(i+1<12 && j-1>0){
+			if(mat[i+1][j-1]=='+'){
+				mat[i+1][j-1]='#';
+			}	
+		}	
 
 
 	}	
-
-
-
 
 }	
 
