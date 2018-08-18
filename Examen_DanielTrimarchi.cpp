@@ -41,7 +41,7 @@ int main(){
 	//cout<<tablero[1][6]<<endl;
 	// ni == nuwva posiicon en i y nj == nueva posicion en j
 	int posi,pj,ni,nj,suma_i,suma_j;
-	bool vive=true;
+	bool vive;
 	do{
 		vive=vivo(turno,tablero);
 		cout<<vive<<endl;
@@ -350,11 +350,11 @@ bool vivo(char pieza,char** mat){
 	}
 	if(cont==0){
 		sigue=false;
-	}else{
+	}else if(cont!=0){
 		sigue=true;
 	
 	}
-cout<<cont<<"CONTADOR"<<endl;
-return vivo;
+cout<<cont<<" CONTADOR-------"<<sigue<<endl;
+return sigue;
 }	
 
